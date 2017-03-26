@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+  This plugin is retrieves the changes of the current build and writes them to a local file, so that other processes can pick them up.
+</div>
