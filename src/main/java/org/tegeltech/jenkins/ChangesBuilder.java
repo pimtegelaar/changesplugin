@@ -20,25 +20,31 @@ import java.util.stream.Collectors;
 
 public class ChangesBuilder extends Builder implements SimpleBuildStep {
 
-    private final String mainsrcdirs;
-    private final String testsrcdirs;
+    private final String mainSrcDirs;
+    private final String testSrcDirs;
+    private final String changesLocation;
 
     private ChangesWriter changesWriter;
     private ChangesRetriever changesRetriever;
 
     @DataBoundConstructor
-    public ChangesBuilder(String mainsrcdirs, String testsrcdirs) {
-        this.mainsrcdirs = mainsrcdirs;
-        this.testsrcdirs = testsrcdirs;
+    public ChangesBuilder(String mainSrcDirs, String testSrcDirs, String changesLocation) {
+        this.mainSrcDirs = mainSrcDirs;
+        this.testSrcDirs = testSrcDirs;
+        this.changesLocation = changesLocation;
     }
 
 
-    public String getMainsrcdirs() {
-        return mainsrcdirs;
+    public String getMainSrcDirs() {
+        return mainSrcDirs;
     }
 
-    public String getTestsrcdirs() {
-        return testsrcdirs;
+    public String getTestSrcDirs() {
+        return testSrcDirs;
+    }
+
+    public String getChangesLocation() {
+        return changesLocation;
     }
 
     @Override
@@ -49,7 +55,9 @@ public class ChangesBuilder extends Builder implements SimpleBuildStep {
         String jobName = externalizableId.split("#")[0];
 
         int buildNumber = build.getNumber();
-        Changes input = getChangesRetriever().retrieve(jobName, buildNumber, mainsrcdirs, testsrcdirs);
+        logger.println("Main source  dirs: " + mainSrcDirs);
+        logger.println("Test source  dirs: " + testSrcDirs);
+        Changes input = getChangesRetriever().retrieve(jobName, buildNumber, mainSrcDirs, testSrcDirs);
 
         List<String> changedSources = input.getChangedSources();
         List<String> changedTests = input.getChangedTests();
@@ -69,7 +77,7 @@ public class ChangesBuilder extends Builder implements SimpleBuildStep {
         logger.println("--------------------------");
         changedTests.forEach(logger::println);
 
-        String changesPath = workspace.getRemote() + File.separator + "changes.csv";
+        String changesPath = workspace.getRemote() + File.separator + changesLocation;
         getChangesWriter().saveChanges(changedSources, changedTests, changesPath, logger);
     }
 

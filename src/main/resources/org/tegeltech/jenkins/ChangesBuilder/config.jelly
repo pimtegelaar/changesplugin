@@ -1,12 +1,16 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 
-  <f:entry title="Main source dirs" field="mainsrcdirs">
+  <f:entry title="Main source dirs" field="mainSrcDirs">
     <f:textbox default="src/main/java"/>
   </f:entry>
 
-  <f:entry title="Test source dirs" field="testsrcdirs">
+  <f:entry title="Test source dirs" field="testSrcDirs">
     <f:textbox default="src/test/java"/>
+  </f:entry>
+
+  <f:entry title="Changes location" field="changesLocation">
+    <f:textbox default="changes.csv"/>
   </f:entry>
 
 </j:jelly>

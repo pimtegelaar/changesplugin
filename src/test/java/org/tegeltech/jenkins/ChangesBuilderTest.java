@@ -22,6 +22,7 @@ public class ChangesBuilderTest {
 
     private static final String MAIN_DIRS = "src/main/java";
     private static final String TEST_DIRS = "src/test/java";
+    public static final String CHANGES_LOCATION = "changes.csv";
 
     @Mock
     private Run<?, ?> build;
@@ -40,7 +41,7 @@ public class ChangesBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        changesBuilder = new ChangesBuilder(MAIN_DIRS, TEST_DIRS);
+        changesBuilder = new ChangesBuilder(MAIN_DIRS, TEST_DIRS, CHANGES_LOCATION);
         changesBuilder.setChangesRetriever(changesRetriever);
         changesBuilder.setChangesWriter(changesWriter);
     }
