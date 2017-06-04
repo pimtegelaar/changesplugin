@@ -48,7 +48,7 @@ public class ChangesBuilderTest {
 
     @Test
     public void perform() throws Exception {
-        String changesPath = "/var/lib/jenkins/workspace/jobname/changes.csv";
+        String changesPath = "/var/lib/jenkins/workspace/jobname" + File.separator + "changes.csv";
 
         PrintStream logger = System.out;
 
